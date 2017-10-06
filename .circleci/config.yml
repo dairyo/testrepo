@@ -19,7 +19,7 @@ jobs:
           command: |
             if [ x"$CIRCLE_TAG" != x ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-              docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
+              docker tag upload-test:latest ${DOCKER_USER}/upload-test:latest
               docker push ${DOCKER_USER}/upload-test:latest
             fi
 workflows:
