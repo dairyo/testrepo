@@ -54,7 +54,7 @@ workflows:
               ignore: /.*/
             branches:
               only: /.*/
-      - deploy:
+      - deployment:
           filters:
             tags:
               only: /.*/
