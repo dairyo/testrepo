@@ -8,6 +8,8 @@ jobs:
        - setup_remote_docker
        - run:
            command: |
+            pwd
+            ls ./
             cd testrepo/redash
             docker build -t .
        
