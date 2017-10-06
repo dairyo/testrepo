@@ -44,20 +44,3 @@ jobs:
               docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
               docker push ${DOCKER_PASSWORD}/upload-test:latest
             fi
-workflows:
-  version: 2
-  btd:
-    jobs:
-      build:
-        filters:
-          tags:
-            ignore: /.*/
-          branches:
-            only: /.*/
-      build:
-        filters:
-          tags:
-            only: /.*/
-          branches:
-            ignore: /.*/
-            
