@@ -10,7 +10,7 @@ jobs:
            command: |
             pwd
             ls ./
-            cd testrepo/redash
+            cd redash
             docker build -t .
        
            
