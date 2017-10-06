@@ -3,6 +3,8 @@ jobs:
    build:
      docker:
       - image: circleci/openjdk:8
+     working_directory: /app
      steps:
        - checkout
        - run: echo "hello world"
+       - run: cat README.mkd
