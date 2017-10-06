@@ -3,9 +3,8 @@ jobs:
    build:
      docker:
       - image: circleci/openjdk:8
-     working_directory: redash
      steps:
        - checkout
+       - run: pwd
        - run: echo "hello world"
        - setup_remote_docker
-       - run: docker build .
