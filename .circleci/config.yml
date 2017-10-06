@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  - build:
     docker:
       - image: docker:stable-git
     steps:
@@ -22,7 +22,7 @@ jobs:
               docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
               docker push ${DOCKER_PASSWORD}/upload-test:latest
             fi
-  deployment:
+  - deployment:
     docker:
       - image: docker:stable-git
     steps:
