@@ -17,29 +17,7 @@ jobs:
       - deploy:
           name: Deploy
           command: |
-            if [ -v "$CIRCLE_TAG" ]; then
-              docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-              docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
-              docker push ${DOCKER_PASSWORD}/upload-test:latest
-            fi
-  deployment:
-    docker:
-      - image: docker:stable-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build redash docker image
-          command: |
-            cd redash
-            docker build -t upload-test .
-      - run:
-          name: List docker images
-          command: docker image list
-      - deploy:
-          name: Deploy
-          command: |
-            if [ -v "$CIRCLE_TAG" ]; then
+            if [ x"$CIRCLE_TAG" != x ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
               docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
               docker push ${DOCKER_PASSWORD}/upload-test:latest
@@ -49,14 +27,3 @@ workflows:
   build-n-deploy:
     jobs:
       - build:
-          filters:
-            tags:
-              ignore: /.*/
-            branches:
-              only: /.*/
-      - deployment:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
