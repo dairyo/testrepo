@@ -2,9 +2,13 @@ version: 2
 jobs:
    build:
      docker:
-      - image: circleci/openjdk:8
+      - image: docker:stable-git
      steps:
        - checkout
-       - run: pwd
-       - run: echo "hello world"
        - setup_remote_docker
+       - run:
+           command:|
+            cd testrepo/redash
+            docker build -t .
+       
+           
