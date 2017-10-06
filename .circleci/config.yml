@@ -14,3 +14,9 @@ jobs:
       - run:
           name: List docker images
           command: docker image list
+  deploy:
+    name: Deploy
+    command: |
+      if [ -z "$CIRCLE_TAG" ]; then
+        echo Hello deployment.
+      fi
