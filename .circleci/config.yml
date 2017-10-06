@@ -10,7 +10,7 @@ jobs:
           name: Build redash docker image
           command: |
             cd redash
-            docker build .
+            docker build -t upload-test .
       - run:
           name: List docker images
           command: docker image list
@@ -18,5 +18,7 @@ jobs:
           name: Deploy
           command: |
             if [ -v "$CIRCLE_TAG" ]; then
-              echo Hello deployment.
+              docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+              docker tag upload-test:latest ${DOCKER_PASSWORD}/upload-test:latest
+              docker push ${DOCKER_PASSWORD}/upload-test:latest
             fi
