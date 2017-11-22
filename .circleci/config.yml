@@ -19,7 +19,7 @@ jobs:
         name: "redashredis"
       - image: redash/redash:latest
         name: "redashserver"
-        command: 
+        command:
           - create_db
           - server
         environment:
