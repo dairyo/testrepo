@@ -20,4 +20,7 @@ jobs:
       - run:
           name: Install Tools
           command: |
-            ls
+            psql postgres://vagrant@p1/vagrant-test -c "CREATE TABLE p1(i int)"
+            psql postgres://vagrant@p1/vagrant-test -c "SELECT * FROM p1"
+            psql postgres://vagrant@p2/vagrant-test -c "CREATE TABLE p2(i int)"
+            psql postgres://vagrant@p2/vagrant-test -c "SELECT * FROM p2"
