@@ -36,7 +36,7 @@ jobs:
           REDASH_REDIS_URL: "redis://redashredis:6379/0"
           REDASH_DATABASE_URL: "redash://redash@redashdb/redash"
           QUEUES: "queries,scheduled_queries,celery"
-      WORKERS_COUNT: 2
+          WORKERS_COUNT: 2
 
     steps:
       - run:
