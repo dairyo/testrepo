@@ -19,8 +19,8 @@ jobs:
         name: "redashredis"
       - image: redash/redash:latest
         name: "redashserver"
-        command:
-          - server create_db
+        command: 
+          - create_db
           - server
         environment:
           PYTHONUNBUFFERED: 0
