@@ -17,6 +17,8 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: redis:3.0-alpine
         name: "redashredis"
+      - image: docker:stable-git
+        command: sleep 10s
       - image: redash/redash:latest
         name: "redashserver"
         command:
@@ -61,10 +63,6 @@ jobs:
             psql postgres://varanus@varanusdb/varanus-test -c "SELECT * FROM t1"
             psql postgres://redash@redashdb/redash -c "CREATE TABLE t2(i int)"
             psql postgres://redash@redashdb/redash -c "SELECT * FROM t2"
-      - run:
-          name: Check docker
-          command: |
-            docker container list -a
       - run:
           name: Tesst Redash server
           command: |
