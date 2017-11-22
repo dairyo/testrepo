@@ -4,16 +4,16 @@ jobs:
     docker:
       - image: docker:stable-git
       - image: circleci/postgres:9.6-alpine
-        name: "varanusdb"
-        environment:
-          POSTGRES_USER: "varanus"
-          POSTGRES_DB: "varanus-test"
-          POSTGRES_PASSWORD: ""
-      - image: circleci/postgres:9.6-alpine
         name: "redashdb"
         environment:
           POSTGRES_USER: "redash"
           POSTGRES_DB: "redash"
+          POSTGRES_PASSWORD: ""
+      - image: circleci/postgres:9.6-alpine
+        name: "varanusdb"
+        environment:
+          POSTGRES_USER: "varanus"
+          POSTGRES_DB: "varanus-test"
           POSTGRES_PASSWORD: ""
       - image: redis:3.0-alpine
         name: "redashredis"
