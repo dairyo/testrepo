@@ -28,6 +28,16 @@ jobs:
           REDASH_COOKIE_SECRET: veryverysecret
           REDASH_WEB_WORKERS: 4
       - image: redash/redash:latest
+        name: "redashworker"
+        command: scheduler
+        environment:
+          PYTHONUNBUFFERED: 0
+          REDASH_LOG_LEVEL: "INFO"
+          REDASH_REDIS_URL: "redis://redashredis:6379/0"
+          REDASH_DATABASE_URL: "redash://redash@redashdb/redash"
+          QUEUES: "queries,scheduled_queries,celery"
+      WORKERS_COUNT: 2
+
     steps:
       - run:
           name: Install Tools
@@ -38,7 +48,6 @@ jobs:
       - run:
           name: Test PostgreSQL
           command: |
-            sleep 5
             psql postgres://varanus@varanusdb/varanus-test -c "CREATE TABLE t1(i int)"
             psql postgres://varanus@varanusdb/varanus-test -c "SELECT * FROM t1"
             psql postgres://redash@redashdb/redash -c "CREATE TABLE t2(i int)"
