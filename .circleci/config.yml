@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/postgres:9.6-alpine
+      - image: docker:stable-git
       - image: circleci/postgres:9.6-alpine
         name: "varanusdb"
         environment:
@@ -19,7 +19,7 @@ jobs:
         name: "redashredis"
       - image: redash/redash:latest
         name: "redashserver"
-        command: server create_db
+        command: server
         environment:
           PYTHONUNBUFFERED: 0
           REDASH_LOG_LEVEL: "INFO"
@@ -30,6 +30,12 @@ jobs:
       - image: redash/redash:latest
     steps:
       - run:
+          name: Install Tools
+          command: |
+            apk update
+            apk add postgresql
+            apk add curl
+      - run:
           name: Test PostgreSQL
           command: |
             sleep 5
@@ -37,3 +43,7 @@ jobs:
             psql postgres://varanus@varanusdb/varanus-test -c "SELECT * FROM t1"
             psql postgres://redash@redashdb/redash -c "CREATE TABLE t2(i int)"
             psql postgres://redash@redashdb/redash -c "SELECT * FROM t2"
+      - run:
+          name: Tesst Redash server
+          command: |
+            curl http://redashserver:5000
