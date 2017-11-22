@@ -18,6 +18,16 @@ jobs:
       - image: redis:3.0-alpine
         name: "redashredis"
       - image: redash/redash:latest
+        name: "redashworker"
+        command: scheduler
+        environment:
+          PYTHONUNBUFFERED: 0
+          REDASH_LOG_LEVEL: "INFO"
+          REDASH_REDIS_URL: "redis://redashredis:6379/0"
+          REDASH_DATABASE_URL: "postgresql://redash@redashdb/redash"
+          QUEUES: "queries,scheduled_queries,celery"
+          WORKERS_COUNT: 2
+      - image: redash/redash:latest
         name: "redashserver"
         command:
           - create_db
@@ -29,17 +39,6 @@ jobs:
           REDASH_DATABASE_URL: "postgresql://redash@redashdb/redash"
           REDASH_COOKIE_SECRET: veryverysecret
           REDASH_WEB_WORKERS: 4
-      - image: redash/redash:latest
-        name: "redashworker"
-        command: scheduler
-        environment:
-          PYTHONUNBUFFERED: 0
-          REDASH_LOG_LEVEL: "INFO"
-          REDASH_REDIS_URL: "redis://redashredis:6379/0"
-          REDASH_DATABASE_URL: "postgresql://redash@redashdb/redash"
-          QUEUES: "queries,scheduled_queries,celery"
-          WORKERS_COUNT: 2
-
     steps:
       - run:
           name: Install Tools
