@@ -21,6 +21,7 @@ jobs:
       - run:
           name: Run SQL
           command: |
+            sleep 2
             psql postgres://u1@p1/d1 -c "CREATE TABLE t1(i int)"
             psql postgres://u1@p1/d1 -c "SELECT * FROM t1"
             psql postgres://u2@p2/d2 -c "CREATE TABLE t2(i int)"
