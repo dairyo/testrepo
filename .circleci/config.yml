@@ -5,17 +5,17 @@ jobs:
       - image: circleci/postgres:9.6-alpine
         name: p0
       - image: circleci/postgres:9.6-alpine
+        name: "p1"
         environment:
-          POSTGRES_USER: u1
-          POSTGRES_DB: d1
+          POSTGRES_USER: "u1"
+          POSTGRES_DB: "d1"
           POSTGRES_PASSWORD: ""
-        name: p1
       - image: circleci/postgres:9.6-alpine
+        name: "p2"
         environment:
-          POSTGRES_USER: u2
-          POSTGRES_DB: d2
+          POSTGRES_USER: "u2"
+          POSTGRES_DB: "d2"
           POSTGRES_PASSWORD: ""
-        name: p2
     steps:
       - checkout
       - run:
