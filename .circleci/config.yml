@@ -2,17 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:xenial
+      - image: circleci/postgres:9.6-alpine
       - image: circleci/postgres:9.6-alpine
         environment:
-          POSTGRES_USER: p1
-          POSTGRES_DB: p1
+          POSTGRES_USER: u1
+          POSTGRES_DB: d1
           POSTGRES_PASSWORD: ""
         name: p1
       - image: circleci/postgres:9.6-alpine
         environment:
-          POSTGRES_USER: p2
-          POSTGRES_DB: p2
+          POSTGRES_USER: u2
+          POSTGRES_DB: d2
           POSTGRES_PASSWORD: ""
         name: p2
     steps:
@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Install Tools
           command: |
-            psql postgres://vagrant@p1/vagrant-test -c "CREATE TABLE p1(i int)"
-            psql postgres://vagrant@p1/vagrant-test -c "SELECT * FROM p1"
-            psql postgres://vagrant@p2/vagrant-test -c "CREATE TABLE p2(i int)"
-            psql postgres://vagrant@p2/vagrant-test -c "SELECT * FROM p2"
+            psql postgres://u1@p1/d1 -c "CREATE TABLE t1(i int)"
+            psql postgres://u1@p1/d1 -c "SELECT * FROM t1"
+            psql postgres://u2@p2/d2 -c "CREATE TABLE t2(i int)"
+            psql postgres://u2@p2/d2 -c "SELECT * FROM t2"
