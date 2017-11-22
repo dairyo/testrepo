@@ -19,7 +19,9 @@ jobs:
         name: "redashredis"
       - image: redash/redash:latest
         name: "redashserver"
-        command: create_db server
+        command:
+          - --rmi server create_db
+          - server
         environment:
           PYTHONUNBUFFERED: 0
           REDASH_LOG_LEVEL: "INFO"
