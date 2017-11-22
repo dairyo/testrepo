@@ -20,7 +20,7 @@ jobs:
       - image: redash/redash:latest
         name: "redashserver"
         command:
-          - --rmi server create_db
+          - server create_db
           - server
         environment:
           PYTHONUNBUFFERED: 0
