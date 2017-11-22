@@ -17,8 +17,6 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: redis:3.0-alpine
         name: "redashredis"
-      - image: docker:stable-git
-        command: sleep 10s
       - image: redash/redash:latest
         name: "redashserver"
         command:
@@ -40,14 +38,6 @@ jobs:
           REDASH_DATABASE_URL: "postgresql://redash@redashdb/redash"
           QUEUES: "queries,scheduled_queries,celery"
           WORKERS_COUNT: 2
-      - image: redash/redash:latest
-        command:
-          - create_db
-        environment:
-          PYTHONUNBUFFERED: 0
-          REDASH_LOG_LEVEL: "INFO"
-          REDASH_REDIS_URL: "redis://redashredis:6379/0"
-          REDASH_DATABASE_URL: "postgresql://redash@redashdb/redash"
     steps:
       - run:
           name: Install Tools
