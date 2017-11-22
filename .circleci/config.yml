@@ -17,6 +17,8 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: redis:3.0-alpine
         name: "redashredis"
+      - image: redash/redash:latest
+      - image: redash/redash:latest
     steps:
       - run:
           name: Test PostgreSQL
