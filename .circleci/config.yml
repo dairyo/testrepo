@@ -2,28 +2,22 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:stable-git
+      - image: ubuntu:xenial
+      - image: circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: p1
+          POSTGRES_DB: p1
+          POSTGRES_PASSWORD: ""
+        name: p1
+      - image: circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: p2
+          POSTGRES_DB: p2
+          POSTGRES_PASSWORD: ""
+        name: p2
     steps:
       - checkout
-      - setup_remote_docker
       - run:
-          name: Build redash docker image
+          name: Install Tools
           command: |
-            cd redash
-            docker build -t upload-test .
-      - run:
-          name: List docker images
-          command: docker image list
-      - deploy:
-          name: Deploy
-          command: |
-            if [ x"$CIRCLE_TAG" != x ]; then
-              docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-              docker tag upload-test:latest ${DOCKER_USER}/upload-test:latest
-              docker push ${DOCKER_USER}/upload-test:latest
-            fi
-workflows:
-  version: 2
-  build-n-deploy:
-    jobs:
-      - build:
+            ls
